@@ -3,404 +3,192 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>云篓 - 隐私政策</title>
-  <meta name="description" content="云篓浏览器扩展隐私政策。说明云篓如何处理本地素材、WebDAV 同步、浏览器权限和用户数据。" />
+  <title>隐私政策 - 素材鱼塘</title>
+  <meta name="description" content="素材鱼塘 Chrome 插件隐私政策，说明我们如何处理用户数据与素材内容。" />
+
   <style>
     :root {
-      --bg: #f8fbf3;
-      --card: rgba(255, 255, 255, 0.82);
-      --text: #1f2a24;
-      --muted: #6e7d73;
-      --green: #8ad63f;
-      --green-dark: #4f8f24;
-      --line: rgba(93, 128, 81, 0.16);
-      --cream: #fff8e8;
-      --danger: #ff7777;
-      --shadow: 0 22px 60px rgba(63, 100, 64, 0.12);
-      --radius: 28px;
+      --bg: #fbfaf7;
+      --card: rgba(255, 255, 255, 0.72);
+      --text: #151515;
+      --muted: #6f6f6f;
+      --line: #ebe6dc;
+      --brand: #d8ad63;
+      --dark: #111111;
     }
 
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC",
+        "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(216, 173, 99, 0.12), transparent 28%),
+        radial-gradient(circle at 88% 12%, rgba(216, 173, 99, 0.08), transparent 30%),
+        var(--bg);
       color: var(--text);
       line-height: 1.8;
-      background:
-        radial-gradient(circle at 8% 5%, rgba(169, 230, 255, 0.42), transparent 28%),
-        radial-gradient(circle at 90% 12%, rgba(199, 245, 145, 0.48), transparent 30%),
-        linear-gradient(180deg, #fffdf7 0%, var(--bg) 44%, #f3faf0 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     .page {
-      width: min(1120px, calc(100% - 40px));
+      width: min(920px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 34px 0 64px;
     }
 
-    .hero {
-      position: relative;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 36px;
+    .nav {
+      height: 72px;
+      display: flex;
       align-items: center;
-      padding: 42px;
-      border: 1px solid var(--line);
-      border-radius: 36px;
-      background: rgba(255,255,255,0.72);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: auto -80px -120px auto;
-      width: 360px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(138,214,63,.28), transparent 68%);
-      pointer-events: none;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 56px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 18px;
     }
 
     .logo {
-      width: 58px;
-      height: 58px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
+      width: 32px;
+      height: 32px;
+      position: relative;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #111 0 48%, #e8c983 49% 100%);
+      clip-path: polygon(50% 0%, 95% 24%, 95% 76%, 50% 100%, 5% 76%, 5% 24%);
+    }
+
+    .logo::after {
+      content: "";
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
       background: #fff;
+      left: 8px;
+      top: 8px;
+    }
+
+    .back {
+      font-size: 14px;
+      color: var(--muted);
       border: 1px solid var(--line);
-      box-shadow: 0 10px 26px rgba(49,83,48,.08);
-      font-size: 30px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.6);
     }
 
-    .brand-name {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: .02em;
+    .hero {
+      margin-bottom: 36px;
     }
 
-    .tag {
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 7px 13px;
+      padding: 7px 12px;
       border-radius: 999px;
-      background: #ecffd8;
-      color: var(--green-dark);
+      background: rgba(247, 237, 216, 0.72);
+      border: 1px solid #ead8b2;
+      color: #9a6d21;
+      font-size: 13px;
       font-weight: 700;
-      font-size: 14px;
       margin-bottom: 18px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(36px, 6vw, 64px);
-      line-height: 1.05;
-      letter-spacing: -0.05em;
+      font-size: clamp(38px, 6vw, 56px);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
     }
 
-    .hero p {
-      margin: 20px 0 0;
-      max-width: 620px;
+    .updated {
+      margin-top: 16px;
       color: var(--muted);
-      font-size: 18px;
-    }
-
-    .summary-card {
-      position: relative;
-      padding: 28px;
-      border-radius: 28px;
-      background: linear-gradient(180deg, #ffffff, #fbfff5);
-      border: 1px solid var(--line);
-      box-shadow: 0 18px 42px rgba(70, 105, 65, 0.1);
-    }
-
-    .summary-card h2 {
-      margin: 0 0 12px;
-      font-size: 22px;
-    }
-
-    .summary-card ul {
-      margin: 0;
-      padding-left: 20px;
-      color: var(--muted);
-    }
-
-    .meta {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .pill {
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: var(--cream);
-      border: 1px solid rgba(196, 153, 67, .16);
-      color: #80683c;
-      font-weight: 650;
-      font-size: 13px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 28px;
-      margin-top: 28px;
-      align-items: start;
-    }
-
-    nav {
-      position: sticky;
-      top: 18px;
-      padding: 18px;
-      border-radius: 24px;
-      background: rgba(255,255,255,.72);
-      border: 1px solid var(--line);
-      box-shadow: 0 14px 40px rgba(62,94,61,.08);
-    }
-
-    nav strong {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 15px;
-    }
-
-    nav a {
-      display: block;
-      padding: 9px 11px;
-      border-radius: 14px;
-      color: var(--muted);
-      text-decoration: none;
       font-size: 14px;
     }
 
-    nav a:hover {
-      color: var(--green-dark);
-      background: #f1fbeb;
-    }
-
-    main {
-      display: grid;
-      gap: 18px;
-    }
-
-    section {
-      padding: 30px;
-      border-radius: var(--radius);
+    .content {
       background: var(--card);
-      border: 1px solid var(--line);
-      box-shadow: 0 12px 36px rgba(70, 100, 60, .07);
-      backdrop-filter: blur(16px);
+      border: 1px solid rgba(235, 230, 220, 0.9);
+      border-radius: 28px;
+      padding: 42px;
+      box-shadow: 0 24px 80px rgba(18, 18, 18, 0.06);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      margin-bottom: 70px;
     }
 
-    section h2 {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 0 14px;
+    h2 {
+      margin: 34px 0 12px;
       font-size: 24px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
 
-    section h2 span {
-      width: 32px;
-      height: 32px;
-      flex: 0 0 32px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: #ecffd8;
-      color: var(--green-dark);
-      font-size: 16px;
+    h2:first-child {
+      margin-top: 0;
     }
 
-    p { margin: 0 0 12px; }
+    p {
+      margin: 0 0 14px;
+      color: #333;
+    }
 
-    ul { margin: 10px 0 0; padding-left: 22px; }
+    ul {
+      margin: 10px 0 18px;
+      padding-left: 22px;
+      color: #333;
+    }
 
-    li { margin: 6px 0; }
+    li {
+      margin: 8px 0;
+    }
 
-    .notice {
-      padding: 16px 18px;
+    strong {
+      color: var(--dark);
+    }
+
+    .note {
+      margin-top: 22px;
+      padding: 18px 20px;
       border-radius: 18px;
-      background: #fff8e8;
-      border: 1px solid rgba(211, 168, 75, .18);
-      color: #665331;
-      margin-top: 12px;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: #fff;
-      margin-top: 14px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 620px;
-      font-size: 15px;
-    }
-
-    th, td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--line);
-      vertical-align: top;
-    }
-
-    th {
-      background: #f3fbea;
-      color: #3d5e2b;
-      white-space: nowrap;
-    }
-
-    tr:last-child td { border-bottom: 0; }
-
-    code {
-      padding: 2px 7px;
-      border-radius: 8px;
-      background: #f2f5ef;
-      color: #305222;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .92em;
+      background: rgba(247, 237, 216, 0.55);
+      border: 1px solid #ead8b2;
+      color: #5f4318;
+      font-size: 14px;
     }
 
     footer {
-      margin-top: 28px;
-      padding: 28px;
-      border-radius: 28px;
+      padding: 28px 0 50px;
+      border-top: 1px solid var(--line);
       color: var(--muted);
-      text-align: center;
-      background: rgba(255,255,255,.62);
-      border: 1px solid var(--line);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    .contact {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      color: var(--green-dark);
-      font-weight: 700;
-      text-decoration: none;
-      word-break: break-all;
-    }
-
-    @media (max-width: 860px) {
-      .page {
-        width: min(100% - 24px, 720px);
-        padding: 18px 0 36px;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 26px;
-        border-radius: 28px;
-        gap: 22px;
-      }
-
-      .brand { margin-bottom: 18px; }
-
-      .logo {
-        width: 50px;
-        height: 50px;
-        font-size: 26px;
-      }
-
-      .brand-name { font-size: 22px; }
-
-      .hero p {
-        font-size: 16px;
-      }
-
-      .summary-card {
-        padding: 22px;
-      }
-
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      nav {
-        position: static;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
-      }
-
-      nav strong {
-        grid-column: 1 / -1;
-      }
-
-      nav a {
-        background: rgba(247, 252, 242, .8);
-      }
-
-      section {
-        padding: 22px;
+    @media (max-width: 640px) {
+      .content {
+        padding: 28px 22px;
         border-radius: 22px;
       }
 
-      section h2 {
-        font-size: 21px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .page {
-        width: 100%;
-        padding: 0 0 28px;
-      }
-
-      .hero {
-        border-radius: 0 0 30px 30px;
-        border-left: 0;
-        border-right: 0;
-        padding: 24px 18px 28px;
-      }
-
-      h1 {
-        font-size: 40px;
-      }
-
-      .layout {
-        padding: 0 12px;
-      }
-
-      nav {
-        grid-template-columns: 1fr;
-        padding: 14px;
-      }
-
-      section {
-        padding: 18px;
-      }
-
-      .table-wrap {
-        margin-left: -4px;
-        margin-right: -4px;
-      }
-
-      footer {
-        margin-left: 12px;
-        margin-right: 12px;
+      .nav {
+        margin-bottom: 36px;
       }
     }
   </style>
@@ -408,187 +196,150 @@
 
 <body>
   <div class="page">
-    <header class="hero">
-      <div>
-        <div class="brand">
-          <div class="logo" aria-hidden="true">🐟</div>
-          <div>
-            <div class="brand-name">云篓</div>
-            <div style="color:var(--muted);font-size:14px;">Yunlou Browser Extension</div>
-          </div>
-        </div>
-        <div class="tag">隐私政策 · Privacy Policy</div>
-        <h1>你的网页素材，<br />默认只在本地。</h1>
-        <p>云篓用于收集、暂存、管理和复用网页上的图片、视频、文字和文件。我们不会出售用户数据，不会用于广告追踪，也不会把素材上传到开发者服务器。</p>
-        <div class="meta">
-          <span class="pill">生效日期：2026-05-31</span>
-          <span class="pill">适用于 Chrome / Edge 扩展</span>
-          <span class="pill">本地优先 · WebDAV 可选</span>
-        </div>
-      </div>
+    <nav class="nav">
+      <a class="brand" href="./index.html">
+        <span class="logo"></span>
+        <span>素材鱼塘</span>
+      </a>
 
-      <div class="summary-card">
-        <h2>核心隐私原则</h2>
-        <ul>
-          <li>只处理用户主动保存、复制、下载或同步的素材。</li>
-          <li>素材默认保存在用户浏览器本地 IndexedDB。</li>
-          <li>WebDAV 为用户自配服务，开发者不会接收账号密码。</li>
-          <li>不收集与素材保存功能无关的浏览历史。</li>
-        </ul>
-      </div>
+      <a class="back" href="./index.html">返回首页</a>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">Privacy Policy</div>
+      <h1>隐私政策</h1>
+      <div class="updated">最后更新日期：2026 年 6 月 7 日</div>
     </header>
 
-    <div class="layout">
-      <nav aria-label="目录">
-        <strong>目录</strong>
-        <a href="#overview">1. 概述</a>
-        <a href="#data">2. 我们处理的数据</a>
-        <a href="#storage">3. 本地存储</a>
-        <a href="#webdav">4. WebDAV 同步</a>
-        <a href="#permissions">5. 权限用途</a>
-        <a href="#usage">6. 数据使用限制</a>
-        <a href="#sharing">7. 数据共享</a>
-        <a href="#security">8. 数据安全</a>
-        <a href="#rights">9. 用户权利</a>
-        <a href="#contact">10. 联系方式</a>
-      </nav>
+    <main class="content">
+      <h2>一、简介</h2>
+      <p>
+        欢迎使用「素材鱼塘」。素材鱼塘是一款用于网页素材收集、保存与管理的 Chrome 浏览器插件。
+        我们重视你的隐私与数据安全。本隐私政策用于说明素材鱼塘如何处理与你使用本插件相关的数据。
+      </p>
+      <p>
+        使用素材鱼塘即表示你已阅读并理解本隐私政策。如果你不同意本政策中的任何内容，请停止使用本插件。
+      </p>
 
-      <main>
-        <section id="overview">
-          <h2><span>1</span>概述</h2>
-          <p>云篓（Yunlou）是一款 Chrome / Edge MV3 浏览器扩展，定位为网页素材中转站。用户可以把网页上的图片、视频、文字和文件保存到浏览器侧边栏素材库，并在需要时复制、下载或拖拽到其他网页中复用。</p>
-          <p>本隐私政策说明云篓如何处理用户数据，以及相关数据如何存储、使用和保护。</p>
-        </section>
+      <h2>二、我们处理哪些数据</h2>
+      <p>为了实现素材收集与管理功能，素材鱼塘可能会在你的设备本地处理以下数据：</p>
+      <ul>
+        <li><strong>网页素材内容：</strong>例如你主动保存的图片、视频、文字、链接、截图、便签等内容。</li>
+        <li><strong>网页来源信息：</strong>例如素材来源页面的 URL、标题或相关页面信息，用于帮助你回溯素材来源。</li>
+        <li><strong>插件配置数据：</strong>例如分类、收藏、标签、界面设置、同步配置等。</li>
+        <li><strong>本地存储数据：</strong>插件运行所需的本地缓存、索引和素材记录。</li>
+      </ul>
+      <p>
+        素材鱼塘不会主动收集你的身份证件、银行卡、支付信息、健康信息、通讯录、精确地理位置等敏感个人信息。
+      </p>
 
-        <section id="data">
-          <h2><span>2</span>我们处理的数据</h2>
-          <p>云篓只处理用户主动保存或操作的内容，包括：</p>
-          <ul>
-            <li>用户主动保存的图片、视频、文字和文件素材；</li>
-            <li>素材名称、类型、大小、创建时间、文件夹归属、收藏状态、回收站状态等素材管理信息；</li>
-            <li>用户创建的文件夹、分类、界面设置和同步设置；</li>
-            <li>用户主动配置的 WebDAV 服务器地址、用户名和密码。</li>
-          </ul>
-          <div class="notice">云篓不会主动收集用户完整浏览历史，不会记录用户访问网页的列表，也不会将网页内容上传到开发者服务器。</div>
-        </section>
+      <h2>三、我们如何使用数据</h2>
+      <p>素材鱼塘处理数据的目的仅限于提供插件核心功能，包括：</p>
+      <ul>
+        <li>保存你主动选择的网页素材；</li>
+        <li>展示、搜索、分类和管理已保存素材；</li>
+        <li>记录素材来源链接，方便你后续访问原网页；</li>
+        <li>支持本地素材库、分类、收藏、回收站等功能；</li>
+        <li>在你主动配置同步服务时，将素材同步到你指定的存储位置。</li>
+      </ul>
 
-        <section id="storage">
-          <h2><span>3</span>本地存储</h2>
-          <p>默认情况下，云篓保存的素材和素材索引会存储在用户浏览器本地，例如 <code>IndexedDB</code> 和浏览器扩展存储中。</p>
-          <p>这些数据不会因为安装云篓而自动上传到开发者服务器。用户更换设备后，默认不会自动同步过去，除非用户主动启用 WebDAV 同步功能。</p>
-        </section>
+      <h2>四、数据存储方式</h2>
+      <p>
+        默认情况下，素材鱼塘的数据主要存储在你的本地浏览器环境中。插件不会在未经你同意的情况下，
+        将你的素材内容上传到我们自己的服务器。
+      </p>
+      <p>
+        如果你主动启用云同步或 WebDAV 等同步功能，相关素材数据可能会被同步到你自行配置的第三方存储服务。
+        此类第三方服务的数据处理方式由对应服务商的隐私政策与服务条款约束。
+      </p>
 
-        <section id="webdav">
-          <h2><span>4</span>WebDAV 同步</h2>
-          <p>云篓提供可选的 WebDAV 同步能力。该功能仅在用户主动配置后启用。</p>
-          <ul>
-            <li>WebDAV 服务器由用户自行提供和配置。</li>
-            <li>WebDAV 用户名和密码仅保存在用户浏览器本地。</li>
-            <li>这些凭据仅用于连接用户自行配置的 WebDAV 服务。</li>
-            <li>云篓不会将 WebDAV 凭据发送给开发者服务器。</li>
-            <li>同步数据会上传到用户自己配置的 WebDAV 服务，而不是云篓开发者服务器。</li>
-            <li>用户可以随时删除 WebDAV 配置，删除后云篓将停止访问对应 WebDAV 服务。</li>
-          </ul>
-        </section>
+      <h2>五、数据共享</h2>
+      <p>
+        我们不会出售、出租或交易你的用户数据。
+      </p>
+      <p>除以下情况外，我们不会向第三方共享你的数据：</p>
+      <ul>
+        <li>你主动配置并使用第三方同步服务，例如 WebDAV、云存储或其他你授权的服务；</li>
+        <li>为遵守适用法律法规、法律程序或政府主管部门的合法要求；</li>
+        <li>为保护用户、开发者或公众的合法权益和安全。</li>
+      </ul>
 
-        <section id="permissions">
-          <h2><span>5</span>权限用途</h2>
-          <p>云篓请求的浏览器权限仅用于实现扩展的核心功能。</p>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>权限</th>
-                  <th>用途说明</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>sidePanel</code></td>
-                  <td>用于显示云篓侧边栏主界面，用户可以在侧边栏中查看、分类、收藏、编辑、复制、下载、删除和拖拽复用素材。</td>
-                </tr>
-                <tr>
-                  <td><code>storage</code></td>
-                  <td>用于保存扩展设置、文件夹信息、素材索引、收藏状态、回收站状态、界面偏好和同步配置等信息。</td>
-                </tr>
-                <tr>
-                  <td><code>downloads</code></td>
-                  <td>用于在用户主动触发下载时，将单个素材、选中素材或全部素材下载到本地浏览器下载目录。</td>
-                </tr>
-                <tr>
-                  <td><code>clipboardWrite</code></td>
-                  <td>用于支持用户主动复制文字、图片链接或素材内容，便于在其他网页或编辑器中复用。</td>
-                </tr>
-                <tr>
-                  <td><code>alarms</code></td>
-                  <td>用于 WebDAV 同步检查、同步队列处理或其他用户主动启用的定时任务。</td>
-                </tr>
-                <tr>
-                  <td><code>&lt;all_urls&gt;</code></td>
-                  <td>用于在用户访问的网页中识别用户主动选择或操作的素材内容，例如悬停保存图片/视频、保存选中文字、区域选择保存和拖拽复用。云篓不会用该权限收集与素材保存功能无关的浏览历史。</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
+      <h2>六、Chrome Web Store Limited Use 说明</h2>
+      <p>
+        素材鱼塘对用户数据的使用遵循 Chrome Web Store 用户数据政策中的 Limited Use 要求。
+        我们仅会出于提供或改进插件核心功能的目的处理用户数据。
+      </p>
+      <ul>
+        <li>不会将用户数据出售给第三方；</li>
+        <li>不会将用户数据用于个性化广告；</li>
+        <li>不会将用户数据用于信用评估、贷款、就业资格或类似目的；</li>
+        <li>不会在与插件核心功能无关的场景中使用或转移用户数据；</li>
+        <li>仅在用户主动操作或授权的情况下处理相关网页素材。</li>
+      </ul>
 
-        <section id="usage">
-          <h2><span>6</span>数据使用限制</h2>
-          <p>云篓处理用户数据仅用于提供以下功能：</p>
-          <ul>
-            <li>保存、分类、收藏和管理网页素材；</li>
-            <li>复制、下载和拖拽复用素材；</li>
-            <li>在用户启用 WebDAV 时进行同步；</li>
-            <li>维持扩展设置和界面偏好。</li>
-          </ul>
-          <p>云篓不会将用户数据用于广告、用户画像、信用评估、贷款评估或与素材管理无关的用途。</p>
-        </section>
+      <h2>七、权限说明</h2>
+      <p>
+        为了实现网页素材收集、截图、框选保存、本页抓取和素材管理等功能，插件可能需要请求部分浏览器权限。
+        这些权限仅用于实现对应功能，不会用于与素材鱼塘功能无关的行为。
+      </p>
+      <p>例如：</p>
+      <ul>
+        <li><strong>访问当前网页内容：</strong>用于识别网页中的图片、视频、文字或其他可保存素材。</li>
+        <li><strong>截图相关权限：</strong>用于在你主动点击截图功能时截取网页内容。</li>
+        <li><strong>存储权限：</strong>用于保存素材、分类、设置和插件运行数据。</li>
+        <li><strong>下载或文件相关能力：</strong>用于帮助你保存或导出素材内容。</li>
+      </ul>
 
-        <section id="sharing">
-          <h2><span>7</span>数据共享</h2>
-          <p>云篓不会出售用户数据，不会向第三方出售、出租或交易用户数据。</p>
-          <p>当用户启用 WebDAV 同步时，素材和索引数据会传输到用户自己配置的 WebDAV 服务。该传输是用户主动配置的同步行为，不经过云篓开发者服务器。</p>
-        </section>
+      <h2>八、数据安全</h2>
+      <p>
+        我们会尽力通过合理的技术措施保护你的数据安全，例如尽量减少不必要的数据处理、
+        优先使用本地存储、避免不必要的数据上传等。
+      </p>
+      <p>
+        但请注意，任何互联网传输或电子存储方式都无法保证百分之百安全。你也应妥善保管自己的浏览器、
+        设备、账号和第三方同步服务凭据。
+      </p>
 
-        <section id="security">
-          <h2><span>8</span>数据安全</h2>
-          <p>云篓采用本地优先的设计，尽量减少数据离开用户设备的情况。用户应妥善保管自己的设备、浏览器账号和 WebDAV 服务凭据。</p>
-          <p>由于 WebDAV 服务由用户自行配置，相关服务器的安全性、可用性和访问控制由用户及其 WebDAV 服务提供方负责。</p>
-        </section>
+      <h2>九、用户控制权</h2>
+      <p>你可以通过以下方式管理自己的数据：</p>
+      <ul>
+        <li>在插件内删除已保存素材；</li>
+        <li>清空回收站或删除分类数据；</li>
+        <li>关闭或修改同步配置；</li>
+        <li>在浏览器扩展管理页面卸载素材鱼塘；</li>
+        <li>通过浏览器设置清除扩展相关本地数据。</li>
+      </ul>
 
-        <section id="rights">
-          <h2><span>9</span>用户权利</h2>
-          <p>用户可以在云篓扩展中执行以下操作：</p>
-          <ul>
-            <li>删除已保存的素材；</li>
-            <li>恢复或彻底删除回收站中的素材；</li>
-            <li>删除文件夹、收藏状态和扩展设置；</li>
-            <li>关闭 WebDAV 同步或删除 WebDAV 配置；</li>
-            <li>通过卸载扩展移除扩展相关的本地数据。</li>
-          </ul>
-        </section>
+      <h2>十、儿童隐私</h2>
+      <p>
+        素材鱼塘并非专门面向儿童设计。我们不会有意收集儿童的个人信息。
+        如果你认为我们无意中处理了儿童个人信息，请及时联系我们。
+      </p>
 
-        <section id="children">
-          <h2><span>10</span>儿童隐私</h2>
-          <p>云篓不是专门面向儿童的产品。我们不会有意收集儿童的个人信息。如果您认为有儿童个人信息被错误保存，请通过联系方式与开发者沟通。</p>
-        </section>
+      <h2>十一、政策更新</h2>
+      <p>
+        我们可能会根据产品功能、法律法规或 Chrome Web Store 政策要求更新本隐私政策。
+        更新后的政策会发布在本页面，并更新顶部的“最后更新日期”。
+      </p>
 
-        <section id="changes">
-          <h2><span>11</span>政策更新</h2>
-          <p>我们可能会根据产品功能、法规要求或审核要求更新本隐私政策。更新后的政策会发布在本页面，并以页面显示的生效日期为准。</p>
-        </section>
+      <h2>十二、联系我们</h2>
+      <p>
+        如果你对本隐私政策或数据处理方式有任何问题，可以通过以下方式联系我们：
+      </p>
+      <ul>
+        <li>开发者：请填写你的名称 / 团队名称</li>
+        <li>邮箱：请填写你的联系邮箱</li>
+        <li>官网：请填写你的官网地址</li>
+      </ul>
 
-        <section id="contact">
-          <h2><span>12</span>联系方式</h2>
-          <p>如您对本隐私政策或云篓的数据处理方式有任何问题，可以通过开发者在 Chrome Web Store、Edge Add-ons 或官方网站中公布的联系方式与我们联系。</p>
-          <p>联系邮箱：<a class="contact" href="didi0825@aliyun.com">"didi0825@aliyun.com</a></p>
-        </section>
-      </main>
-    </div>
+      <div class="note">
+        发布到 Chrome 商店前，请把“开发者、邮箱、官网地址、Chrome 商店链接”等占位内容替换成你的真实信息。
+      </div>
+    </main>
 
     <footer>
-      <strong>云篓 Yunlou</strong><br />
-      网页素材中转站 · 收集、暂存、管理和拖拽复用
+      <span>© 2026 素材鱼塘</span>
+      <span>让网页素材收集更简单</span>
     </footer>
   </div>
 </body>
